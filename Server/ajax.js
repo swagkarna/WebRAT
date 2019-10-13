@@ -133,6 +133,8 @@ function getFile(var button){
 	};
 	//sending filepath via POST request
 	request.open('POST', url + '?setcmd=getfile');
+	//setting form header
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	request.send('filepath=' + filepath);
 }
 
@@ -186,6 +188,7 @@ function sendCommand(var button){
 		}
 	};
 	request.open('POST', url + '?setcmd=shell');
+	request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	request.send('command=' + command);
 }
 
