@@ -121,9 +121,9 @@ function getFile(var button){
 			if(this.status == 200){
 				if(this.responseText.startsWith('Error: '))
 					alert(this.responseText);
-				else{
+				else
+					//download file by opening new tab with download request to server
 					window.open(url + '?getfile=1', '_blank');
-				}
 			}
 			else
 				alert('Connection error: status code ' + this.status);
@@ -146,12 +146,8 @@ function sendFile(var button){
 	var request = XMLHttpRequest();
 	request.onreadystatechange = function(){
 		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText.startsWith('Error: '))
-					alert(this.responseText);
-				else
-					alert('File ' + this.responseText + ' sent correctly');
-			}
+			if(this.status == 200)
+				alert(this.responseText);
 			else
 				alert('Connection error: status code ' + this.status);
 			button.removeAttribute('disabled');
