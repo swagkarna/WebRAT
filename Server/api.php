@@ -1,6 +1,4 @@
 <?php
-//disable request timeout
-set_time_limit(0);
 
 //directory in which are stored all server-side files
 $dir = 'server/';
