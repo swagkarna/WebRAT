@@ -1,5 +1,5 @@
 # WebRAT
-A simple Remote Administration Tool for Windows, structured as follows:
+A simple Web Remote Administration Tool for Windows, structured as follows:
 - Malware client (written in Python)
 - C&C Server Control Panel (written in HTML + JS with AJAX)
 - C&C Server API (written in PHP)
