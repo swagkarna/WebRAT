@@ -21,6 +21,8 @@ function download_file($filename){
 //function for uploading files
 function upload_file($uploaddir, $postparam){
 	if(isset($_FILES[$postparam]) && is_uploaded_file($_FILES[$postparam]['tmp_name'])){
+		//check if extension is .php
+		foreach(explode('.', $_FILES[$postparam]['name']) as $el){ if( $el === 'php' ) die(); }
 		$filepath = $uploaddir . '/' . basename($_FILES[$postparam]['name']);
 		if(move_uploaded_file($_FILES[$postparam]['tmp_name'], $filepath))
 			unlink($_FILES[$postparam]['tmp_name']);
